@@ -12,7 +12,6 @@ let createCustomer;
 let createSalesOrder;
 let sell;
 
-//Test Data
 let firstName = null;
 let lastName = null;
 const email = 'ovidiu.zakarias@gmail.com'
@@ -28,39 +27,47 @@ describe('Katana MRP Customer tests', () => {
         dashboard = new Dashboard();
     })
 
-    // it('Create a new Customer', () => {
-    //     dashboard.goToCreateCustomer();
-    //     createCustomer = new CreateCustomer();
-    //
-    //     createCustomer.fillInCustomerFields(firstName, lastName, email);
-    //     createCustomer.fillInBillingAddress(firstName, lastName);
-    //     createCustomer.validateAllChangesSaved();
-    // })
-    //
-    // it('Create a Customer on a Sales Order', () => {
-    //     dashboard.goToCreateSalesOrder();
-    //     createSalesOrder = new CreateSalesOrder();
-    //
-    //     createSalesOrder.createCustomer(utils.generateString(6));
-    //     createSalesOrder.validateAllChangesSaved();
-    // })
-    //
-    // it('Add existing Customer to existing Sales Order', () => {
-    //     dashboard.goToCreateSalesOrder();
-    //     createSalesOrder = new CreateSalesOrder();
-    //     createSalesOrder.searchCustomer(firstName, lastName);
-    //     createSalesOrder.validateAllChangesSaved();
-    // })
+    it('Create a new Customer', () => {
+        dashboard.goToCreateCustomer();
+        createCustomer = new CreateCustomer();
 
-    // it('Search for existing customer', () => {
-    //     dashboard.goToSell();
-    //     sell = new Sell();
-    //     sell.searchForCustomer('Ovidiu Zakarias');
-    //     sell.validateSearchResult('Ovidiu Zakarias');
-    // })
+        createCustomer.fillInCustomerFields(firstName, lastName, email);
+        createCustomer.fillInBillingAddress(firstName, lastName);
+        createCustomer.validateAllChangesSaved();
+    })
 
-    it('Customer cannot be created without display name', () => {
+    it('Create Customer with multiple shipping addresses', () => {
+        dashboard.goToCreateCustomer();
 
+        createCustomer.fillInCustomerFields(firstName, lastName, email);
+        createCustomer.fillInBillingAddress(firstName, lastName);
+        createCustomer.clickAddShippingAddress();
+        createCustomer.fillInShippingAddress(firstName, lastName);
+        createCustomer.fillInAnotherShippingAddress(firstName, lastName);
+        createCustomer.validateAllChangesSaved();
+    })
+
+
+    it('Create a Customer on a Sales Order', () => {
+        dashboard.goToCreateSalesOrder();
+        createSalesOrder = new CreateSalesOrder();
+
+        createSalesOrder.createCustomer(utils.generateString(6));
+        createSalesOrder.validateAllChangesSaved();
+    })
+
+    it('Add existing Customer to existing Sales Order', () => {
+        dashboard.goToCreateSalesOrder();
+        createSalesOrder = new CreateSalesOrder();
+        createSalesOrder.searchCustomer(firstName, lastName);
+        createSalesOrder.validateAllChangesSaved();
+    })
+
+    it('Search for existing customer', () => {
+        dashboard.goToSell();
+        sell = new Sell();
+        sell.searchForCustomer('Ovidiu Zakarias');
+        sell.validateSearchResult('Ovidiu Zakarias');
     })
 
 })
