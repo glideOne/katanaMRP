@@ -17,4 +17,10 @@ export class Dashboard {
         return this;
     }
 
+    goToSell() {
+        cy.get('#salesTab > .MuiTab-wrapper').click();
+        cy.get('[data-testid="agGridColoredCell"]').should('be.visible');
+        return this;
+    }
+
 }
