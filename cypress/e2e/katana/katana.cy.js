@@ -11,20 +11,22 @@ let createCustomer;
 let createSalesOrder;
 
 //Test Data
-const firstName = 'Ovidiu'
-const lastName = 'Zakarias'
+let firstName = null;
+let lastName = null;
 const email = 'ovidiu.zakarias@gmail.com'
 const password = 'Thisisnotmyactualpassworddonttrytohackme1'
 
-describe('Katana MRP Create Customer', () => {
+describe('Katana MRP Customer tests', () => {
     before(() => {
+        firstName = utils.generateString(4);
+        lastName = utils.generateString(6);
         cy.viewport(1920, 1080)
         login.navigate()
         login.login(email, password);
         dashboard = new Dashboard();
     })
 
-    it('Creates a new customer', () => {
+    it('Create a new Customer', () => {
         dashboard.goToCreateCustomer();
         createCustomer = new CreateCustomer();
 
@@ -33,7 +35,7 @@ describe('Katana MRP Create Customer', () => {
         createCustomer.validateAllChangesSaved();
     })
 
-    it('Creates a customer on a Sales Order', () => {
+    it('Create a Customer on a Sales Order', () => {
         dashboard.goToCreateSalesOrder();
         createSalesOrder = new CreateSalesOrder();
 
@@ -41,7 +43,18 @@ describe('Katana MRP Create Customer', () => {
         createSalesOrder.validateAllChangesSaved();
     })
 
-    it('Search for existing customers', () => {
+    it('Add existing Customer to existing Sales Order', () => {
+        dashboard.goToCreateSalesOrder();
+        createSalesOrder = new CreateSalesOrder();
+        createSalesOrder.searchCustomer(firstName, lastName);
+        createSalesOrder.validateAllChangesSaved();
+    })
+
+    it('Search for existing customer', () => {
+
+    })
+
+    it('Customer cannot be created without display name', () => {
 
     })
 
